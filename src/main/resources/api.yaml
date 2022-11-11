@@ -1,0 +1,32 @@
+openapi: 3.0.3
+info:
+  title: My service
+  description: My service
+  version: 1.0.0
+servers:
+  - url: 'https://api.vultureweb.dev'
+
+paths:
+  /hello:
+    get:
+      description: Simple hello endpoint
+      operationId: hello
+      responses:
+        "200":
+          description: Return a greeting
+          content:
+            application/json:
+              schema:
+                $ref: "#components/Greeting"
+        "204":
+          description: default response
+
+components:
+  schemas:
+    Greeting:
+      properties:
+        message:
+          type: string
+        time:
+          type: string
+          format: date
