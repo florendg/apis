@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>{{groupId}}</groupId>
+  <artifactId>{{artifactId}}</artifactId>
+  <packaging>{{#interfaceOnly}}jar{{/interfaceOnly}}{{^interfaceOnly}}war{{/interfaceOnly}}</packaging>
+  <name>{{artifactId}}</name>
+  <version>{{artifactVersion}}</version>
+
+{{#parentOverridden}}
+  <parent>
+    <groupId>{{parentGroupId}}</groupId>
+    <artifactId>{{parentArtifactId}}</artifactId>
+    <version>{{parentVersion}}</version>
+  </parent>
+{{/parentOverridden}}
+
+  <build>
+    <sourceDirectory>src/gen/java</sourceDirectory>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>jakarta.ws.rs</groupId>
+      <artifactId>jakarta.ws.rs-api</artifactId>
+      <version>${jakarta.ws.rs-version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jackson-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.annotation</groupId>
+      <artifactId>jakarta.annotation-api</artifactId>
+      <version>${jakarta.annotation-api-version}</version>
+    </dependency>
+    {{#useBeanValidation}}
+    <!-- Bean Validation API support -->
+    <dependency>
+        <groupId>jakarta.validation</groupId>
+        <artifactId>jakarta.validation-api</artifactId>
+        <version>${beanvalidation-version}</version>
+        <scope>provided</scope>
+    </dependency>
+{{/useBeanValidation}}
+  </dependencies>
+  <properties>
+    <java.version>17</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jackson-version>2.14.0</jackson-version>
+    <jakarta.annotation-api-version>2.1.0</jakarta.annotation-api-version>
+{{#useBeanValidation}}
+    <beanvalidation-version>3.0.2</beanvalidation-version>
+{{/useBeanValidation}}
+    <jakarta.ws.rs-version>3.1.0</jakarta.ws.rs-version>
+  </properties>
+</project>

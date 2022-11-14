@@ -17,16 +17,41 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#components/Greeting"
+                $ref: "#/components/schemas/Greeting"
         "204":
           description: default response
+  /hello/{name}:
+    get:
+      description: Say hello to a specific person
+      operationId: hello-name
+      parameters:
+        - in: path
+          name: name
+          description: Name of the persone to greet
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: Return a greeting
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Greeting"
+        "204":
+          description: default response
+
 
 components:
   schemas:
     Greeting:
+      required: [message]
       properties:
         message:
           type: string
         time:
           type: string
           format: date
+        important:
+          type: boolean
+          default: true
